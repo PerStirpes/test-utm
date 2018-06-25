@@ -1,0 +1,10 @@
+{
+  "name": "test-utm",
+  "version": "0.0.1",
+  "description": "utm test",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^23.2.0"
+  }
+}
