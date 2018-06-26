@@ -1,15 +1,16 @@
 function formatQs() {
-  let SUPPORTED_UTM = ['content', 'medium', 'name', 'term', 'source'];
-  let output = {};
-  let qs = _document.location.search.substring(1); // Remove leading ?
-  if (qs === '') return;
+  const SUPPORTED_UTM = ['content', 'medium', 'name', 'term', 'source'];
+  const output = {};
+  let qs = document.location.search.substring(1); // Remove leading ?
+  if (qs === '') return "You passed in an empty string ''";
 
   qs = qs.split('&');
 
   for (let i = 0; i < qs.length; i++) {
     // destructure out the keys and values
-    let [key, value] = qs[i].split('=');
+    const [key, value] = qs[i].split('=');
 
+    let param;
     if (key.startsWith('utm_')) {
       param = key.slice(4);
 
@@ -23,10 +24,10 @@ function formatQs() {
       if (param === 'campaign') param = 'name';
 
       // Check for the utm requested for by the question
-      if (!param in SUPPORTED_UTM) continue;
+      if (!SUPPORTED_UTM.includes(param)) continue;
 
       // decode chars
-      let decodeUri = decodeURIComponent(value.replace(/\+/g, ' '));
+      const decodeUri = decodeURIComponent(value.replace(/\+/g, ' '));
 
       output[param.toLowerCase()] = decodeUri;
     }
@@ -41,12 +42,12 @@ const analytics = {
   },
 };
 
-// const document = {
-//   location: {
-//     search:
-//       '?utm_source=google&utm_campaign=simulator_push&utm_content=trees&utm_name=forest',
-//   },
-// };
+const document = {
+  location: {
+    search:
+      '?utm_source=google&utm_campaign=simulator_push&utm_content=trees&utm_name=forest',
+  },
+};
 
 // document,
 // analytics,
